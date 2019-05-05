@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>博客列表</title>
+</head>
+<body>
+    {% if tag %}
+        <div>标签页：{{ tag.name }}</div>
+    {% endif %}
+    {% if category %}
+        <div>标签页：{{ category.name }}</div>
+    {% endif %}
+    <div>顶部信息
+        {% for cate in navs %}
+            <a href="{% url 'post_list_category' cate.id %}">{{ cate.name }}</a>
+        {% endfor %}
+    </div>
+    <div>
+        <ul>
+            {% for post in post_list %}
+                <li>
+                    <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                    <div>
+                        <span>作者：{{ post.owner.username }}</span>
+                        <span>作者：{{ post.category.name }}</span>
+                    </div>
+                    <p>{{ post.desc }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>底部信息
+        {% for cate in categories %}
+            <a href="{% url 'post_list_category' cate.id %}">{{ cate.name }}</a>
+        {% endfor %}
+    </div>
+</body>
+</html>
