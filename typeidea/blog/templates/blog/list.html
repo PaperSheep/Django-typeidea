@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>博客列表</title>
-</head>
-<body>
+{% extends "./base.html" %}
+{% block title %}
     {% if tag %}
-        <div>标签页：{{ tag.name }}</div>
+        <div>标签列表页：{{ tag.name }}</div>
+    {% elif category %}
+        <div>分类列表页：{{ category.name }}</div>
+    {% else %}
+        <div>首页</div>
     {% endif %}
-    {% if category %}
-        <div>标签页：{{ category.name }}</div>
-    {% endif %}
-    <div>顶部信息
-        {% for cate in navs %}
-            <a href="{% url 'post_list_category' cate.id %}">{{ cate.name }}</a>
-        {% endfor %}
-    </div>
+{% endblock %}
+{% block main %}
     <div>
         <ul>
             {% for post in post_list %}
@@ -30,10 +23,16 @@
             {% endfor %}
         </ul>
     </div>
-    <div>底部信息
-        {% for cate in categories %}
-            <a href="{% url 'post_list_category' cate.id %}">{{ cate.name }}</a>
-        {% endfor %}
+    <div>
+        {% if page_obj %}
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
+            {% endif %}
+            Page {{ page_obj.number }} of {{ paginator.num_pages }}.
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">下一页</a>
+            {% endif %}
+        {% endif %}
     </div>
-</body>
-</html>
+{% endblock %}
+
