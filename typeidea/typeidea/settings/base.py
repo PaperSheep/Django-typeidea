@@ -31,16 +31,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'typeidea',
+    'blog',
+    'config',
+    'comment',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    'blog',
-    'config',
-    'comment',
+    'django.contrib.staticfiles',  # 仅限DEBUG时使用的静态资源加载
 ]
 
 MIDDLEWARE = [
@@ -55,11 +56,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'typeidea.urls'
 
+# 以后需要不同样式目录直接修改这个名字就行
+THEME = 'bootstrap'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),  # 配置模板文件路径
+            os.path.join(BASE_DIR, 'themes', THEME, 'templates'),  # 配置模板文件路径
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -119,7 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 # 设置静态文件路径
+STATIC_ROOT = '/tmp/static'  # 用来配置部署之后的静态资源路径
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'themes', THEME, 'static'),
 ]

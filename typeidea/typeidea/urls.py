@@ -21,6 +21,7 @@ from .custom_site import custom_site
 
 urlpatterns = [
     path('', include('blog.urls')),
+    path('link/', include('config.urls')),
     path('super_admin/', admin.site.urls),
     path('admin/', custom_site.urls),
 ]

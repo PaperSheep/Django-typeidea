@@ -109,6 +109,7 @@ class Post(models.Model):
 
         return post_list, category
 
+    # 博客列表需要的基本数据
     @classmethod
     def latest_posts(cls):
         queryset = cls.objects.filter(status=cls.STATUS_NORMAL)
