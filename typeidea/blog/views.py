@@ -2,6 +2,8 @@ from django.db.models import Q
 from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404
 
+# from comment.forms import CommentForm
+# from comment.models import Comment
 from config.models import SideBar
 from .models import Post, Category, Tag
 
@@ -21,6 +23,13 @@ class PostDetailView(CommonViewMixin, DetailView):
     template_name = 'blog/detail.html'  # 指定模板页面
     context_object_name = 'post'
     pk_url_kwarg = 'post_id'  # url传进来的参数
+
+    # def get_context_data(self, **kwargs):
+    #     # 重写get_context_data方法
+    #     context = super().get_context_data(**kwargs)
+    #     context['comment_form'] = CommentForm
+    #     context['comment_list'] = Comment.get_by_target(self.request.path)
+    #     return context
 
 
 # 主页

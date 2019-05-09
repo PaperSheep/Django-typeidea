@@ -1,7 +1,7 @@
 <ul>
     {% for comment in comments %}
         <li>
-            <a href="{% url '' comment.target_id %}">{{ comment.target.title }}</a> | 
+            <a href="{{ comment.target }}">{{ comment.target.title }}</a> | 
             {{ comment.nickname }} ： {{ comment.content }}
         </li>
     {% endfor %}
