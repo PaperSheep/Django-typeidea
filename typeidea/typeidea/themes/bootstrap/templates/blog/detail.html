@@ -1,16 +1,23 @@
 {% extends "./base.html" %}
 {% load comment_block %}  {# 加载评论模块 #}
+{% load static %}
 {% block title %} {{ post.title }} {% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/googlecode.min.css' %}">
+    <script type="text/javascript" src="{% static 'js/highlight.min.js' %}"></script>
+    <script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+{% endblock %}
 {% block main %}
     <div>
         {% if post %}
             <h1>{{ post.title }}</h1>
             <div>
                 <span>作者：{{ post.owner.username }}</span>
-                <span>作者：{{ post.category.name }}</span>
+                <span>分类：{{ post.category.name }}</span>
             </div>
         <hr/>
-        <p>{{ post.content }}</p>
+
+        <p>{% autoescape off %}{{ post.content_html }}{% endautoescape %}</p>
         {% endif %}
     </div>
     {% comment_block request.path %}  {# 使用评论模块 #}
